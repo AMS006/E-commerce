@@ -1,0 +1,37 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "The E-commerce web application where a user can buy the products",
+  "main": "server/index.js",
+  "scripts": {
+    "build": "babel index.js -d dist",
+    "start": "npm run build && node dist/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js"
+  },
+  "author": "Anas Sain",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/node": "^7.19.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "cloudinary": "^1.32.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-validator": "^6.14.2",
+    "fileupload": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.8.0",
+    "path": "^0.12.7",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "nodemon": "^2.0.20"
+  }
+}
