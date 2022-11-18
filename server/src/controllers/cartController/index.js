@@ -45,3 +45,17 @@ exports.addToCart = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+exports.getCart = async(req,res) =>{
+    try {
+        const user = req.user._id;
+        const cart = await CartModel.find({user});
+
+        if(!cart){
+            return  res.status(404).json({message:"No item added to cart"})
+        }
+        return res.status(200).json({cart});
+    }catch (error) {
+        return res.status(500).json({message:error.message});
+    }
+}

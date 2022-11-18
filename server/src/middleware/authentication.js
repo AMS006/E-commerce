@@ -16,7 +16,6 @@ exports.requireSignIn = async(req,res,next) =>{
 exports.isUser = (req,res,next) =>{
     try {
         const role = req.user.role;
-        // console.log(role)
         if(role === "admin"){
             return res.status(403).json({message:"Login with User account to access this resource"});
         }
