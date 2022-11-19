@@ -1,0 +1,11 @@
+.closeBtn{
+    position: absolute;
+    top: -20px;
+    font-weight: bold;
+    right: -17px;
+}
+@media (max-width: 768px) {
+    .closeBtn{
+        top:-164px
+    }
+}
