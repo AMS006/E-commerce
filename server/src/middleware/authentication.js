@@ -3,9 +3,8 @@ import { UserModel } from '../models/User';
 
 exports.requireSignIn = async(req,res,next) =>{
     try{
-    const {token} = req.cookies;
-    if(!token) return res.status(500).json({success:false, message:"Plzz login to access this resource"});
-
+    const {token} =  req.cookies;
+    if(!token) return res.status(404).json({message:"Plzz Login"})
     const decodeData = jwt.verify(token, process.env.SECRET_KEY);
     req.user = await UserModel.findById(decodeData.id);
     next();

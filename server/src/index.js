@@ -6,15 +6,25 @@ import user from './routes/User'
 import category from './routes/category'
 import cart from './routes/cart'
 import cookieParser from 'cookie-parser'
-import fileUpload from 'express-fileupload'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 import path from 'path'
+
 dotenv.config();
 const ecom = express();
 
 const PORT = 4000;
 ecom.use(cookieParser());
+ecom.use(bodyParser.urlencoded({ extended: true }))
 ecom.use(express.json());
-
+ecom.use(cors({
+    origin:"http://localhost:3000",
+    methods: ['GET', 'PUT', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    credentials: true,
+    maxAge: 5000,
+    exposedHeaders: ['*', 'Authorization', ]
+}));
 process.on("uncaughtException", (err) =>{
     console.log(`Error: ${err.message}`);
     console.log(`Shutting down the server due to Uncaught Exception`);

@@ -8,8 +8,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {MdLogout} from 'react-icons/md'
-
-export default function LoggedInLogo() {
+import { logout } from '../../redux/reducers/user/user.action'
+import { useDispatch } from 'react-redux';
+import {useAlerts} from 'react-alert'
+export default function LoggedInLogo({name}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,6 +20,11 @@ export default function LoggedInLogo() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const dispatch = useDispatch()
+  const handleLogout = () =>{
+    console.log("Logout")
+    dispatch(logout())
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -30,7 +37,7 @@ export default function LoggedInLogo() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -70,9 +77,9 @@ export default function LoggedInLogo() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <Avatar /> {name}
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
         <ListItemIcon>
             <MdLogout/>
         </ListItemIcon>

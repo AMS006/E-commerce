@@ -37,6 +37,31 @@ exports.loginUser = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Invalid Email or password" });
+    if(user.role == "admin"){
+      console.log("Unknown")
+      return res.status(400).json({message:"Cannot Login you with Admin Credentials"})
+    }
+    const ispasswordMatched = await bcrypt.compare(password, user.password);
+    if (!ispasswordMatched)
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid Email or password" });
+    generateToken(res, 200, user);
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+exports.loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ success: false, message: "Invalid input" });
+    const user = await UserModel.findOne({ email }).select("+password");
+    if (!user)
+      return res.status(404).json({ success: false, message: "Invalid Email or password" });
+    if(user.role != "admin"){
+      return res.status(400).json({message:"Unable to login as Admin"})
+    }
     const ispasswordMatched = await bcrypt.compare(password, user.password);
     if (!ispasswordMatched)
       return res
@@ -146,6 +171,19 @@ exports.changePassword = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+exports.getUserDetails = async(req,res) =>{
+  try {
+    if(!req.user)
+      return res.status(400).json({message:"Invalid request"})
+    const user = await UserModel.findOne(req.user._id);
+
+    if(!user)
+      return res.status(404).json({message:"No user found"});
+    return res.status(200).json({user});
+  } catch (error) {
+    return res.status(500).json({success:false,message:error.message})
+  }
+}
 exports.updateProfile = async (req, res) => {
   try {
     const data = req.body;
@@ -173,7 +211,6 @@ exports.getAllUser = async (req, res) => {
 exports.getSingleUser = async (req, res) => {
   try {
     const _id = req.params._id;
-    console.log(_id);
     const user = await UserModel.findById(_id);
 
     if (!user) return res.status(403).json({ message: "User does not exists" });

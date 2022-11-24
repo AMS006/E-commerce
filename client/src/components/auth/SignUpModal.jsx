@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import Dialog from '@mui/material/Dialog';
 
 import DialogContent from '@mui/material/DialogContent';
@@ -8,12 +8,23 @@ import './style.css'
 import { GrSecure } from 'react-icons/gr'
 import { MdOutlineEmail } from 'react-icons/md'
 import {CgProfile} from 'react-icons/cg'
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../redux/reducers/user/user.action';
 export default function SignUpModal({ open, setOpen, setSignInOpen }) {
     const handleClose = () => setOpen(false);
     const handleOpen = (event) =>{
         event.preventDefault()
         setOpen(false);
         setSignInOpen(true);
+    }
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+    const dispatch = useDispatch()
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        dispatch(signUp({name,email,password}));
+        setOpen(false);
     }
     return (
         <div>
@@ -39,28 +50,28 @@ export default function SignUpModal({ open, setOpen, setSignInOpen }) {
                                 <img src={Logo} alt="Logo" className="h-full w-full" />
                                 <button className='closeBtn' onClick={handleClose}>X</button>
                             </div>
-                            <form action="" className='w-full h-full'>
+                            <form action="" className='w-full h-full' onSubmit={handleSubmit}>
                                 <div className='flex flex-col md:gap-6 gap-4 '>
                                     <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                         <label htmlFor="name">Name</label>
                                         <div className='absolute top-8 px-1'>
                                             <CgProfile />
                                         </div>
-                                        <input type="text" placeholder="Enter your Name" className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="name" required />
+                                        <input type="text" placeholder="Enter your Name" value={name} onChange={(e)=> setName(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="name" required />
                                     </div>
                                     <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                         <label htmlFor="email">Email</label>
                                         <div className='absolute top-8 px-1'>
                                             <MdOutlineEmail />
                                         </div>
-                                        <input type="email" placeholder="Enter your Email" className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="email" required />
+                                        <input type="email" placeholder="Enter your Email" value={email} onChange={(e)=> setEmail(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="email" required />
                                     </div>
                                     <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                         <label htmlFor="password">Password</label>
                                         <div className='absolute top-8 px-1'>
                                             <GrSecure />
                                         </div>
-                                        <input type="password" placeholder='Enter you Password' className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="password" required />
+                                        <input type="password" placeholder='Enter you Password' value={password} onChange={(e)=> setPassword(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="password" required />
                                     </div>
                                     <div className='w-full text-center  bg-teal-500 py-2 font-bold h-full text-white'>
                                         <input type="submit" value="SignUp" className='cursor-pointer w-full h-full' />

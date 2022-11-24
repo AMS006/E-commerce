@@ -6,9 +6,10 @@ const generateToken = (res,statusCode,user) =>{
         expires : new Date(
             Date.now() + 5 * 24 * 60 * 60 * 1000
         ),
+        secure:false,
         httpOnly:true
     }
-    return res.status(statusCode).cookie('token',token, options).json({success:true, user, token})
+       return res.status(statusCode).cookie('token',token, options).json({success:true, user})
     }catch(error){
         return res.status(500).json({message:error.message});
     }

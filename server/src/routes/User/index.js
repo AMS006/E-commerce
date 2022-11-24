@@ -1,5 +1,5 @@
 import express from 'express';
-import {createUser,loginUser,logoutUser,forgotPassword,resetPassword,changePassword,updateProfile,getAllUser,getSingleUser,deleteUser,updateRole} from '../../controllers/UserController'
+import {createUser,loginUser,loginAdmin,logoutUser,forgotPassword,resetPassword,changePassword,updateProfile,getAllUser,getSingleUser,deleteUser,updateRole,getUserDetails} from '../../controllers/UserController'
 import {requireSignIn,isAdmin} from '../../middleware/authentication'
 import {check} from 'express-validator'
 import { signInValidation, signUpValidation } from '../../validator/authValidator';
@@ -12,6 +12,10 @@ router.post("/signup",signUpValidation,checkErrors,createUser)
 router.post("/login",signInValidation,checkErrors, loginUser);
 
 router.get("/logout",logoutUser)
+
+router.post('/adminLogin',loginAdmin);
+
+router.get("/me",requireSignIn,getUserDetails);
 
 router.put("/password/forgot",forgotPassword);
 
