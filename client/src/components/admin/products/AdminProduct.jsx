@@ -2,7 +2,10 @@ import React from 'react'
 function AdminProduct() {
   return (
     <div className='ml-44'>
-      Products
+       <h1 className='w-full text-center py-3 text-2xl font-semibold'>Manage Products</h1>
+      <div>
+
+      </div>
     </div>
   )
 }

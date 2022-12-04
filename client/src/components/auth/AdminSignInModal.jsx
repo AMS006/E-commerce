@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Dialog from '@mui/material/Dialog';
 import {useDispatch, useSelector} from 'react-redux'
 import DialogContent from '@mui/material/DialogContent';
@@ -7,8 +7,8 @@ import Logo from '../Navbar/logo.png'
 import './style.css'
 import { GrSecure } from 'react-icons/gr'
 import { MdOutlineEmail } from 'react-icons/md'
-import { adminLogin } from '../../redux/reducers/user/user.action';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { adminLogin } from '../../redux_1/user/user.action';
+import {useNavigate } from 'react-router-dom';
 
 function AdminSignInModal({open,setOpen}) {
     const handleClose = () => setOpen(false);
@@ -18,18 +18,22 @@ function AdminSignInModal({open,setOpen}) {
     const handleSubmit = (e) =>{
         e.preventDefault()
         dispatch(adminLogin({email,password}))
-        setOpen(false);
+        handleClose()
     }
     window.onresize = function(){
         if(window.innerWidth < 768){
-            setOpen(false);
+            handleClose()
         }
     }
     const navigate = useNavigate()
-    const user = useSelector((state) => state.userReducer.user.user);
-    if(user?.role === "admin"){
-        navigate("/admin/dashboard")
-    }
+    const user = useSelector((state) => state.user.user);
+    useEffect(() => {
+        if(user?.role === "admin"){
+            navigate("/admin/dashboard")
+        }
+    }, [user])
+    
+    
   return (
     <div>
       <Dialog
@@ -61,14 +65,14 @@ function AdminSignInModal({open,setOpen}) {
                                 <div className='absolute top-8 px-1'>
                                     <MdOutlineEmail />
                                 </div>
-                                <input type="email" value={email} placeholder="Enter your Email" className='focus:outline-none py-1 pl-7 pr-2 w-full' onChange={(e) => setEmail(e.target.value)} name="" id="email" required />
+                                <input type="email" value={email} placeholder="Enter your Email" className='focus:outline-none py-1 pl-7 pr-2 w-full' onChange={(e) => setEmail(e.target.value)} name="email" id="email" required />
                             </div>
                             <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                 <label htmlFor="password">Password</label>
                                 <div className='absolute top-8 px-1'>
                                     <GrSecure />
                                 </div>
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter you Password' className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="password" required />
+                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter you Password' className='focus:outline-none py-1 pl-7 pr-2 w-full' name="password" id="password" required />
                             </div>
                             <div className='w-full text-center  bg-teal-500 py-2 font-bold h-full text-white'>
                                 <input type="submit" value="Login" className='cursor-pointer w-full h-full' />

@@ -4,7 +4,6 @@ import { Outlet,useLocation,Navigate } from 'react-router-dom'
 
 function AdminPage() {
   const {pathname} = useLocation();
-  console.log(pathname);
   if(pathname === "/admin/dashboard"){
     return <Navigate to='/admin/dashboard/Category' />
   }

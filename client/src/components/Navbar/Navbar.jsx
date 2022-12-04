@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import logo from './logo.png'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { FaShoppingCart } from 'react-icons/fa'
@@ -12,8 +12,7 @@ function Navbar() {
     const [open, setOpen] = React.useState(false);
     const [adminOpen,setAdminOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const user = useSelector((state) => state.userReducer.user.user);
-
+    const user = useSelector((state) => state.user.user);
     return (
         <div className='bg-teal-500  py-2 md:px-16 px-2'>
             <SignInModal open={open} setOpen={setOpen}/>
@@ -26,7 +25,7 @@ function Navbar() {
                       </Link>
                     </div>
                     <div className='w-full relative hidden md:block'>
-                        <input type="text" className='px-2 py-2 w-full rounded-sm text-sm focus:outline-none' name="" placeholder='Search for products...' id="" />
+                        <input type="text" className='px-2 py-2 w-full rounded-sm text-sm focus:outline-none' name="search" placeholder='Search for products...' id="" />
                         <span className='absolute right-1  text-xl font-extrabold text-teal-500' style={{top:'9px'}}><BiSearchAlt2 /></span>
                     </div>
                 </div>
@@ -49,7 +48,7 @@ function Navbar() {
                 </div>
             </div>
             <div className='w-full relative pt-2 md:hidden'>
-                <input type="text" className='px-2 py-2 w-full rounded-sm text-sm focus:outline-none' name="" placeholder='Search for products...' id="searchProducts" />
+                <input type="text" className='px-2 py-2 w-full rounded-sm text-sm focus:outline-none' name="search" placeholder='Search for products...' id="searchProducts" />
                 <span className='absolute right-1  text-xl font-extrabold text-teal-500' style={{top:'15.5px'}}><BiSearchAlt2 /></span>
             </div>
         </div>

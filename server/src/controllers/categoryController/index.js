@@ -26,6 +26,7 @@ exports.addCategory = async (req, res) => {
     const categoryObj = {
       name: req.body.name,
       createdBy: req.user._id,
+      type:req.body?.type
     };
     if (req.body.parentId) {
       categoryObj.parentId = req.body.parentId;
@@ -43,8 +44,8 @@ exports.getCategory = async (req, res) => {
   try {
     const category = await CategoryModel.find();
     if(category){
-        const cateogryList = createCategories(category)
-        return res.status(200).json({cateogryList})
+        const categoryList = createCategories(category)
+        return res.status(200).json({categoryList})
     }
 
     return res.status(200).json({message:"No category Found"});
@@ -52,3 +53,34 @@ exports.getCategory = async (req, res) => {
     return res.status(500).json({message:error.message})
   }
 };
+exports.deleteCategory = async(req,res) =>{
+  try {
+    const category = req.body.list;
+    const deletedCategoryList = [];
+    if(!category){
+      return res.status(400).json({message:"No category Selected"});
+    }
+    for(let i = 0;i<category.length;i++){
+      const deletedCategory = await CategoryModel.findByIdAndDelete(category[i]);
+      deletedCategoryList.push(deletedCategory)
+    }
+    return res.status(200).json({message:"Categories Deleted Successfully", deletedCategoryList});
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+  }
+}
+exports.updateCategory = async(req,res) =>{
+  try {
+    const data = req.body
+    for(let i = 0;i<data.length;i++){
+      const id = data[i].value;
+      const {name,parentId,type} = data[i];
+      const updatedList = await CategoryModel.findByIdAndUpdate(id,{name,parentId,type});
+    }
+
+    return res.status(200).json({message:"Updated Successfully"})
+  } catch (error) {
+    return res.status(500).json({message:error.message})
+    
+  }
+}

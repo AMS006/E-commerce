@@ -9,7 +9,7 @@ import './style.css'
 import { GrSecure } from 'react-icons/gr'
 import { MdOutlineEmail } from 'react-icons/md'
 import SignUpModal from './SignUpModal';
-import { login } from '../../redux/reducers/user/user.action';
+import { login } from '../../redux_1/user/user.action';
 
 export default function SignInModal({open,setOpen}) {
   const handleClose = () => setOpen(false);
@@ -60,14 +60,14 @@ export default function SignInModal({open,setOpen}) {
                                 <div className='absolute top-8 px-1'>
                                     <MdOutlineEmail />
                                 </div>
-                                <input type="email" value={email} placeholder="Enter your Email" className='focus:outline-none py-1 pl-7 pr-2 w-full' onChange={(e) => setEmail(e.target.value)} name="" id="email" required />
+                                <input type="email" value={email} name="email" placeholder="Enter your Email" className='focus:outline-none py-1 pl-7 pr-2 w-full' onChange={(e) => setEmail(e.target.value)}  id="email" required />
                             </div>
                             <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                 <label htmlFor="password">Password</label>
                                 <div className='absolute top-8 px-1'>
                                     <GrSecure />
                                 </div>
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter you Password' className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="password" required />
+                                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter you Password' className='focus:outline-none py-1 pl-7 pr-2 w-full'  id="password" required />
                             </div>
                             <div className='w-full text-center  bg-teal-500 py-2 font-bold h-full text-white'>
                                 <input type="submit" value="Login" className='cursor-pointer w-full h-full' />

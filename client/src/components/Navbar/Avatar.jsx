@@ -8,9 +8,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {MdLogout} from 'react-icons/md'
-import { logout } from '../../redux/reducers/user/user.action'
+import { logout } from '../../redux_1/user/user.action'
 import { useDispatch } from 'react-redux';
-import {useAlerts} from 'react-alert'
+// import {useAlerts} from 'react-alert'
 export default function LoggedInLogo({name}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -22,7 +22,7 @@ export default function LoggedInLogo({name}) {
   };
   const dispatch = useDispatch()
   const handleLogout = () =>{
-    console.log("Logout")
+
     dispatch(logout())
   }
   return (

@@ -9,7 +9,7 @@ import { GrSecure } from 'react-icons/gr'
 import { MdOutlineEmail } from 'react-icons/md'
 import {CgProfile} from 'react-icons/cg'
 import { useDispatch } from 'react-redux';
-import { signUp } from '../../redux/reducers/user/user.action';
+import { signUp } from '../../redux_1/user/user.action';
 export default function SignUpModal({ open, setOpen, setSignInOpen }) {
     const handleClose = () => setOpen(false);
     const handleOpen = (event) =>{
@@ -57,21 +57,21 @@ export default function SignUpModal({ open, setOpen, setSignInOpen }) {
                                         <div className='absolute top-8 px-1'>
                                             <CgProfile />
                                         </div>
-                                        <input type="text" placeholder="Enter your Name" value={name} onChange={(e)=> setName(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="name" required />
+                                        <input type="text" placeholder="Enter your Name" value={name} onChange={(e)=> setName(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="name" id="name" required />
                                     </div>
                                     <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                         <label htmlFor="email">Email</label>
                                         <div className='absolute top-8 px-1'>
                                             <MdOutlineEmail />
                                         </div>
-                                        <input type="email" placeholder="Enter your Email" value={email} onChange={(e)=> setEmail(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="email" required />
+                                        <input type="email" placeholder="Enter your Email" value={email} onChange={(e)=> setEmail(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="email" id="email" required />
                                     </div>
                                     <div className='w-full bg-white relative px-2 border-b border-teal-500'>
                                         <label htmlFor="password">Password</label>
                                         <div className='absolute top-8 px-1'>
                                             <GrSecure />
                                         </div>
-                                        <input type="password" placeholder='Enter you Password' value={password} onChange={(e)=> setPassword(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="" id="password" required />
+                                        <input type="password" placeholder='Enter you Password' value={password} onChange={(e)=> setPassword(e.target.value)} className='focus:outline-none py-1 pl-7 pr-2 w-full' name="password" id="password" required />
                                     </div>
                                     <div className='w-full text-center  bg-teal-500 py-2 font-bold h-full text-white'>
                                         <input type="submit" value="SignUp" className='cursor-pointer w-full h-full' />
