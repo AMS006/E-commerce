@@ -9,18 +9,18 @@ import AdminPage from './components/admin/AdminPage';
 import AdminOrders from './components/admin/orders/AdminOrders';
 import AdminCategory from './components/admin/category/AdminCategory';
 import AdminProduct from './components/admin/products/AdminProduct';
+import {initialData} from './redux_1/initialData/inidialData.action'
 const PrivateRoute = ({children }) => {
   const user = useSelector((state) => state.user.user);
   return (user && user.role === "admin") ? children : <Navigate to="/" />;
 }
 
-
 function App() {
   const dispatch = useDispatch()
   useEffect(() =>{
     dispatch(getUserDetails())
+    dispatch(initialData())
   },[dispatch]);
-
   return (
     <BrowserRouter>
       <Routes>

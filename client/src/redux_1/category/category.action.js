@@ -7,7 +7,7 @@ export const getCategory = ()=> async(dispatch)=>{
             method:"GET",
             url:"http://localhost:4000/api/v1/category"
         })
-        return dispatch(categorySuccess(categoryList.data))
+        return dispatch(categorySuccess(categoryList.data.categoryList))
     } catch (error) {
         return dispatch(categoryFail(error.response.data.message))
     }
@@ -20,7 +20,6 @@ export const addCategory = (item) =>async(dispatch) =>{
             url:"http://localhost:4000/api/v1/category",
             data:{name:item.categoryName, parentId:item.categoryParentId,type:item?.categoryType}
         })
-        console.log(category);
         return dispatch(categoryAddSuccess(category));
     } catch (error) {
         return dispatch(categoryFail(error.response))
@@ -29,7 +28,7 @@ export const addCategory = (item) =>async(dispatch) =>{
 export const deleteCategory = (list) =>async(dispatch) =>{
     try {
         dispatch(categoryDeleteRequest());
-        const deletedCategory = await axios({
+        await axios({
             method:"DELETE",
             url:"http://localhost:4000/api/v1/category",
             data:{list}

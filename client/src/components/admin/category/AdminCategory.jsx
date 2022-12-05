@@ -32,9 +32,9 @@ function AdminCategory() {
   const [expandedCategoryList, setExpandedCategoryList] = useState([]);
 
   const categories = useSelector((state) => state.category.category);
-  useEffect(() => {
-    dispatch(getCategory());
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(getCategory());
+  // }, [dispatch])
 
   //Function
   const renderCategories = (category) => {

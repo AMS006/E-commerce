@@ -5,6 +5,7 @@ import product from './routes/product'
 import user from './routes/User'
 import category from './routes/category'
 import cart from './routes/cart'
+import initialData from './routes/initialData'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -37,6 +38,7 @@ ecom.use('/api/v1/category',category)
 ecom.use('/api/v1/product', product)
 ecom.use('/api/v1/user',user)
 ecom.use('/api/v1/cart',cart);
+ecom.use('/api/v1/initialData',initialData)
 ecom.use('/public', express.static(path.join(__dirname, 'uploads')))
 ecom.listen(PORT, () =>{
     console.log("Server is Running");

@@ -37,10 +37,9 @@ exports.loginUser = async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Invalid Email or password" });
-    if(user.role == "admin"){
-      console.log("Unknown")
+    if(user.role === "admin")
       return res.status(400).json({message:"Cannot Login you with Admin Credentials"})
-    }
+    
     const ispasswordMatched = await bcrypt.compare(password, user.password);
     if (!ispasswordMatched)
       return res
